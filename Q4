@@ -1,0 +1,58 @@
+// Q4
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node *next;
+};
+
+void insert(Node *&head, int val)
+{
+    Node *n = new Node{val, nullptr};
+    if (!head)
+        head = n;
+    else
+    {
+        Node *t = head;
+        while (t->next)
+            t = t->next;
+        t->next = n;
+    }
+}
+
+Node *reverse(Node *head)
+{
+    Node *prev = nullptr, *curr = head, *next = nullptr;
+    while (curr)
+    {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+
+void display(Node *head)
+{
+    while (head)
+    {
+        cout << head->data << (head->next ? "->" : "->NULL\n");
+        head = head->next;
+    }
+}
+
+int main()
+{
+    Node *head = nullptr;
+    for (int x : {1, 2, 3, 4})
+        insert(head, x);
+
+    cout << "Original: ";
+    display(head);
+    head = reverse(head);
+    cout << "Reversed: ";
+    display(head);
+}
