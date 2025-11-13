@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+struct Node
+{
+    int data;
+    Node *next;
+};
+
+void insert(Node *&head, int val)
+{
+    Node *n = new Node{val, nullptr};
+    if (!head)
+        head = n;
+    else
+    {
+        Node *t = head;
+        while (t->next)
+            t = t->next;
+        t->next = n;
+    }
+}
+
+int middle(Node *head)
+{
+    Node *slow = head, *fast = head;
+    while (fast && fast->next)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow->data;
+}
+
+int main()
+{
+    Node *head = nullptr;
+    for (int x : {1, 2, 3, 4, 5})
+        insert(head, x);
+    cout << "Middle element: " << middle(head);
+}
